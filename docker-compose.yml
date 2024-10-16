@@ -13,10 +13,11 @@ services:
       - mongo
       - redis
       - celery
-    command: ["poetry", "run", "uvicorn", "sample_page.app:app", "--host", "0.0.0.0", "--port", "8000"]
+    command: ["poetry", "run", "uvicorn", "sample_paper.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
   redis:
     image: "redis:alpine"
+    
     ports:
       - "6379:6379"
     volumes:
@@ -40,7 +41,7 @@ services:
       - .:/app
     depends_on:
       - redis
-    command: ["poetry", "run", "celery", "-A", "sample_page.config", "worker", "--loglevel=info"]
+    command: ["poetry", "run", "celery", "-A", "sample_paper.config", "worker", "--loglevel=info"]
 
 volumes:
   redis-data:
