@@ -6,7 +6,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Sample Page API!"}
+    return {"message": "welcome to application"}
 
 
 @app.get("/health")
