@@ -6,7 +6,10 @@ from redis import Redis
 import json
 from bson import ObjectId, json_util
 from fastapi import Body
-
+import base64
+from fastapi import FastAPI, File, UploadFile, HTTPException
+from .task import process_pdf_task
+import uuid
 
 app = FastAPI()
 
@@ -150,4 +153,34 @@ async def delete_paper(paper_id: str):
     except Exception as e:
         print(f"Error deleting paper: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+
+@app.post("/extract/pdf")
+async def extract_pdf(file: UploadFile = File(...)):
+    pdf_content = await file.read()  # Read the file content
+
+    # Create a new task with status 'pending'
+    task_id = str(uuid.uuid4())
+    task_data = {"task_id": task_id, "status": "pending", "paper_id": None}
+    await db.tasks.insert_one(task_data)
+
+    # Encode the binary PDF content to base64 before passing to Celery
+    pdf_content_base64 = base64.b64encode(pdf_content).decode('utf-8')
+
+    # Asynchronously process the PDF in the background
+    process_pdf_task.delay(task_id, pdf_content_base64)
+
+    # Return the task ID
+    return {"task_id": task_id, "status": "pending"}
+
+@app.get("/tasks/{task_id}")
+async def get_task_status(task_id: str):
+    task = await db.tasks.find_one({"task_id": task_id})
+    
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    return {"task_id": task["task_id"], "status": task["status"], "paper_id": task.get("paper_id")}
+
+
 
