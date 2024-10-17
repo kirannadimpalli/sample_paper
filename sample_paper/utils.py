@@ -28,27 +28,27 @@ def extract_pdf_content(pdf_stream):
 
 
 
-# def extract_pdf_data(pdf_content: str) -> dict:
-#     prompt = f"""
-#     I have the following raw text extracted from a PDF. Can you format it into a structured JSON format that includes sections, questions, and metadata?
+def extract_pdf_data(pdf_content: str) -> dict:
+    prompt = f"""
+    I have the following raw text extracted from a PDF. Can you format it into a structured JSON format that includes sections, questions, and metadata?
 
-#     Raw PDF text:
-#     {pdf_content}
+    Raw PDF text:
+    {pdf_content}
 
-#     Please format it as a JSON structure with the following fields:
-#     - title: The title of the paper (str)
-#     - type: The type of paper (e.g., "previous_year") (str)
-#     - time: Total time for the paper (integer)
-#     - marks: Total marks for the paper (int)
-#     - params: Metadata such as board, grade, and subject (dict)
-#     - sections: Each section contains multiple questions (list of section)
-#     - Each question has fields like question (str), answer (str), type (str), reference ID (str), and hint (str), question_slug (str), params (str).
-#     If no property is not found in given pdf, make an default value for that key eg: type = '', or time = 0 or sections = [] etc
-#     """
-#     response = model.generate_content(prompt)
-#     formatted_response = format_gemini_response(response)
+    Please format it as a JSON structure with the following fields:
+    - title: The title of the paper (str)
+    - type: The type of paper (e.g., "previous_year") (str)
+    - time: Total time for the paper (integer)
+    - marks: Total marks for the paper (int)
+    - params: Metadata such as board, grade, and subject (dict)
+    - sections: Each section contains multiple questions (list of section)
+    - Each question has fields like question (str), answer (str), type (str), reference ID (str), and hint (str), question_slug (str), params (str).
+    If no property is not found in given pdf, make an default value for that key eg: type = '', or time = 0 or sections = [] etc
+    """
+    response = model.generate_content(prompt)
+    formatted_response = format_gemini_response(response)
 
-#     return formatted_response
+    return formatted_response
 
 
 def format_gemini_response(response):
@@ -74,37 +74,37 @@ def format_gemini_response(response):
 
 
 
-def extract_pdf_data(pdf_content: str) -> dict:
-    json_response = {
-            "title": "The Sample Paper Title",
-            "type": "previous_year",
-            "time": 180,
-            "marks": 100,
-            "params": {
-                "board": "CBSE",
-                "grade": 10,
-                "subject": "Mathematics"
-            },
-            "sections": [
-                {
-                    "name": "Section 1",
-                    "marks_per_question": 5,
-                    "question_type": "default",
-                    "questions": [
-                        {
-                            "question_text": "Solve the quadratic equation: x² + 5x + 6 = 0",
-                            "answer": "The solutions are x = -2 and x = -3.",
-                            "hint": "Use the quadratic formula or factorization method.",
-                            "reference_id": "QE001"
-                        },
-                        {
-                            "question_text": "In a right-angled triangle, if one angle is 30°, what is the other acute angle?",
-                            "answer": "The other acute angle is 60°.",
-                            "hint": "Remember that the sum of angles in a triangle is 180°.",
-                            "reference_id": "GT001"
-                        }
-                    ]
-                }
-            ]
-        }
-    return json_response
+# def extract_pdf_data(pdf_content: str) -> dict:
+#     json_response = {
+#             "title": "The Sample Paper Title",
+#             "type": "previous_year",
+#             "time": 180,
+#             "marks": 100,
+#             "params": {
+#                 "board": "CBSE",
+#                 "grade": 10,
+#                 "subject": "Mathematics"
+#             },
+#             "sections": [
+#                 {
+#                     "name": "Section 1",
+#                     "marks_per_question": 5,
+#                     "question_type": "default",
+#                     "questions": [
+#                         {
+#                             "question_text": "Solve the quadratic equation: x² + 5x + 6 = 0",
+#                             "answer": "The solutions are x = -2 and x = -3.",
+#                             "hint": "Use the quadratic formula or factorization method.",
+#                             "reference_id": "QE001"
+#                         },
+#                         {
+#                             "question_text": "In a right-angled triangle, if one angle is 30°, what is the other acute angle?",
+#                             "answer": "The other acute angle is 60°.",
+#                             "hint": "Remember that the sum of angles in a triangle is 180°.",
+#                             "reference_id": "GT001"
+#                         }
+#                     ]
+#                 }
+#             ]
+#         }
+#     return json_response
