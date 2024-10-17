@@ -29,3 +29,7 @@ class TaskResponse(BaseModel):
     task_id: str
     status: str
     paper_id: Optional[str] = None
+
+
+class TextInput(BaseModel):
+    text: str

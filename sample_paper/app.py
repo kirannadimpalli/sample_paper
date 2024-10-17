@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .entity import SamplePaper
+from .entity import SamplePaper, TextInput
 from .config import db
 from fastapi import HTTPException
 from redis import Redis
@@ -10,6 +10,7 @@ import base64
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from .task import process_pdf_task
 import uuid
+from .utils import extract_pdf_data
 
 app = FastAPI()
 
@@ -184,3 +185,17 @@ async def get_task_status(task_id: str):
 
 
 
+@app.post("/extract/text", response_model=dict)
+async def extract_text(input: TextInput):
+    """
+    Accepts plain text input, processes it with Gemini, and returns it in JSON format.
+    """
+    try:
+        # Process the input text using the Gemini model
+        processed_data = extract_pdf_data(input.text)
+
+        # Return the structured JSON format
+        return processed_data
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error extracting text: {str(e)}")
