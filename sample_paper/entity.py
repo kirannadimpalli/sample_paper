@@ -2,28 +2,28 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 class Question(BaseModel):
-    question: str
-    answer: str
+    question: Optional[str] = None 
+    answer: Optional[str] = None
     type: Optional[str] = None
     question_slug: Optional[str] = None
-    reference_id: str
+    reference_id: Optional[str] = None
     hint: Optional[str] = None
     params: dict = {}
 
 class Section(BaseModel):
-    marks_per_question: int
+    marks_per_question: Optional[int] = None
     type: Optional[str] = None
-    questions: List[Question]
+    questions: List[Question] = []
 
 class SamplePaper(BaseModel):
-    title: str
-    type: str
-    time: int
-    marks: int
-    params: dict
-    tags: List[str]
+    title: Optional[str] = None
+    type: Optional[str] = None
+    time: Optional[int] = None
+    marks: Optional[int] = None 
+    params: dict = {}
+    tags: List[str] = []
     chapters: List[str] = []
-    sections: List[Section]
+    sections: List[Section] = []
 
 class TaskResponse(BaseModel):
     task_id: str
