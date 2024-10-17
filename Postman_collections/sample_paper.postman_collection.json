@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "c8c417c2-2dc3-448e-8705-f67b961dfb7e",
+		"name": "sample_paper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23369189"
+	},
+	"item": [
+		{
+			"name": "create paper",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"hello\",\r\n  \"type\": \"previous_year\",\r\n  \"time\": 180,\r\n  \"marks\": 100,\r\n  \"params\": {\r\n    \"board\": \"CBSE\",\r\n    \"grade\": 10,\r\n    \"subject\": \"Mathematics\"\r\n  },\r\n  \"tags\": [\"algebra\", \"geometry\"],\r\n  \"chapters\": [\"Quadratic Equations\", \"Triangles\"],\r\n  \"sections\": [\r\n    {\r\n      \"marks_per_question\": 5,\r\n      \"type\": \"default\",\r\n      \"questions\": [\r\n        {\r\n          \"question\": \"Solve the quadratic equation: x^2 + 5x + 6 = 0\",\r\n          \"answer\": \"The solutions are x = -2 and x = -3\",\r\n          \"type\": \"short\",\r\n          \"question_slug\": \"solve-quadratic-equation\",\r\n          \"reference_id\": \"QE001\",\r\n          \"hint\": \"Use the quadratic formula or factorization method\",\r\n          \"params\": {}\r\n        },\r\n        {\r\n          \"question\": \"In a right-angled triangle, if one angle is 30°, what is the other acute angle?\",\r\n          \"answer\": \"60°\",\r\n          \"type\": \"short\",\r\n          \"question_slug\": \"right-angle-triangle-angles\",\r\n          \"reference_id\": \"GT001\",\r\n          \"hint\": \"Remember that the sum of angles in a triangle is 180°\",\r\n          \"params\": {}\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/papers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"papers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extract text",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"text\": \"Mathematics previous year paper for grade 10 under the CBSE board. Solve the quadratic equation x^2 + 5x + 6 = 0. What is the other angle in a right-angled triangle if one angle is 30°?\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/extract/text",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"extract",
+						"text"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extract files",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1ef8c438-e020-4810-9761-756e93a47a85"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/extract/pdf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"extract",
+						"pdf"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "paper update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"New Title\",\r\n  \"author\": \"New Author\",\r\n  \"content\": \"This is the new content of the paper.\",\r\n  \"year\": 2024\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/papers/67114250eddc6e5daed40c43",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"papers",
+						"67114250eddc6e5daed40c43"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get paper",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/papers/67114250eddc6e5daed40c43",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"papers",
+						"67114250eddc6e5daed40c43"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "task status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/tasks/2c2a96f5-c02f-4003-b16a-362fb40774db",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"tasks",
+						"2c2a96f5-c02f-4003-b16a-362fb40774db"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete paper",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/papers/67114250eddc6e5daed40c43",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"papers",
+						"67114250eddc6e5daed40c43"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
